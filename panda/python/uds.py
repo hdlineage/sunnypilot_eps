@@ -98,6 +98,7 @@ class BAUD_RATE_TYPE(IntEnum):
   CAN1000000 = 19
 
 class DATA_IDENTIFIER_TYPE(IntEnum):
+  FLASH_DECRYPTION_KEY = 0xF101
   BOOT_SOFTWARE_IDENTIFICATION = 0xF180
   APPLICATION_SOFTWARE_IDENTIFICATION = 0xF181
   APPLICATION_DATA_IDENTIFICATION = 0xF182
@@ -462,8 +463,8 @@ class IsoTpMessage():
         # no timeout indicates non-blocking
         if timeout == 0:
           return None, rx_in_progress
-        if time.monotonic() - start_time > timeout:
-          raise MessageTimeoutError("timeout waiting for response")
+        #if time.monotonic() - start_time > timeout:
+        #  raise MessageTimeoutError("timeout waiting for response")
     finally:
       if self.debug and self.rx_dat:
         print(f"ISO-TP: RESPONSE - {hex(self._can_client.rx_addr)} 0x{bytes.hex(self.rx_dat)}")
