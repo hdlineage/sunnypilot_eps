@@ -50,6 +50,8 @@ class RESET_TYPE(IntEnum):
 class ACCESS_TYPE(IntEnum):
   REQUEST_SEED = 1
   SEND_KEY = 2
+  ADVANCED_SEED = 0x61
+  ADVANCED_KEY = 0x62
 
 class CONTROL_TYPE(IntEnum):
   ENABLE_RX_ENABLE_TX = 0
