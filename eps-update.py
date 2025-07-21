@@ -176,6 +176,8 @@ if __name__ == "__main__":
     data = uds_client.routine_control(ROUTINE_CONTROL_TYPE.START, ROUTINE_IDENTIFIER_TYPE.CHECK_PROGRAMMING_DEPENDENCIES)
     debug_output = debug_output + [data]
 
+    print("Done")
+
   except Exception:
     print(traceback.format_exc())
 
