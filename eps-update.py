@@ -63,11 +63,11 @@ def decrypt(fw, ops):
   plain, _ = fw.decrypt(decoder)
   return plain
 
-def get_uds_client(can_addr, debug):
+def get_uds_client(can_addr, debug, can_bus):
   try:
     panda = Panda(disable_checks=True)
     panda.set_safety_mode(Panda.SAFETY_ELM327)
-    uds_client = UdsClient(panda, can_addr, debug=False, bus = 1)
+    uds_client = UdsClient(panda, can_addr, debug=False, bus = can_bus)
     print("Using real client")
   except Exception:
     mock_helper = mock.patch('panda.python.uds.UdsClient', autospec=True)
@@ -97,6 +97,7 @@ if __name__ == "__main__":
   parser.add_argument("-o", "--cipher-ops", default="+^-", help="Operand list for firmware encryption cipher")
   parser.add_argument("-c", "--checksum-offsets", nargs="*", default=[0xa000, 0x1d000, 0x4ff00], type=auto_int)
   parser.add_argument("--debug", action="store_true", help="Enable debug output")
+  parser.add_argument("--bus", default=0, help="Specify CAN bus")
   parser.add_argument("--danger", action="store_true", help="Run in danger mode that actually performs mutating actions")
   args = parser.parse_args()
 
@@ -107,7 +108,7 @@ if __name__ == "__main__":
 
   can_addr = get_can_address(fw)
   print("Connecting to CAN address 0x{:08X}".format(can_addr))
-  uds_client = get_uds_client(can_addr, args.debug)
+  uds_client = get_uds_client(can_addr, args.debug, args.bus)
 
   debug_output: List[int] = list()
 
