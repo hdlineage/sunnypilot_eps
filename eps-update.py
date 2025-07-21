@@ -96,8 +96,8 @@ if __name__ == "__main__":
   parser.add_argument("rwd", help="RWD firmware file to flash")
   parser.add_argument("-o", "--cipher-ops", default="+^-", help="Operand list for firmware encryption cipher")
   parser.add_argument("-c", "--checksum-offsets", nargs="*", default=[0xa000, 0x1d000, 0x4ff00], type=auto_int)
+  parser.add_argument("--bus", default=0, type=auto_int, help="CAN bus number")
   parser.add_argument("--debug", action="store_true", help="Enable debug output")
-  parser.add_argument("--bus", default=0, help="Specify CAN bus")
   parser.add_argument("--danger", action="store_true", help="Run in danger mode that actually performs mutating actions")
   args = parser.parse_args()
 
